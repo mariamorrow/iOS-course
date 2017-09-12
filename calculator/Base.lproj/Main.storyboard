@@ -101,6 +101,9 @@
                                 <state key="normal" title="(-)">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="Sign:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xf8-AJ-csx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHz-ZU-DIy">
                                 <rect key="frame" x="115" y="600" width="50" height="50"/>

@@ -17,23 +17,38 @@ class ViewController: UIViewController {
     var number2:String = "";
     var answer:Double = 0;
     var operation:Int = 0;
+    var sign1:String = "";
+    var sign2:String = "";
+    var neg:Double = -1;
 
     @IBOutlet weak var CalculationDisplay: UILabel!
     @IBOutlet weak var AnswerDisplay: UILabel!
     
     
+    @IBAction func Sign(_ sender: UIButton) {
+    if operationinprogress == "yes"
+    {
+        sign2 = "-"
+        CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)\(sign2)"
+        }
+    else{
+        sign1 = "-"
+        CalculationDisplay.text = "\(sign1)"
+        }
+        
+    }
     
     @IBAction func Numbers(_ sender: UIButton) {
         if operationinprogress == "yes"
         {
             number2 += sender.currentTitle!
             calculation += number2
-            CalculationDisplay.text = "\(number1)\(currentoperation)\(number2)"
+            CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)\(sign2)\(number2)"
         }
         else{
             number1 += sender.currentTitle!
             calculation += number1
-            CalculationDisplay.text = number1
+            CalculationDisplay.text = "\(sign1)\(number1)"
         }
     }
     
@@ -44,45 +59,118 @@ class ViewController: UIViewController {
         case "/":
             operation=1
             calculation += currentoperation
-            CalculationDisplay.text = "\(number1)\(currentoperation)"
+            CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)"
         case "X":
             operation=2
             calculation += currentoperation
-            CalculationDisplay.text = "\(number1)\(currentoperation)"
+            CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)"
         case "-":
             operation=3
             calculation += currentoperation
-            CalculationDisplay.text = "\(number1)\(currentoperation)"
+            CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)"
         case "+":
             operation=4
             calculation += currentoperation
-            CalculationDisplay.text = "\(number1)\(currentoperation)"
+            CalculationDisplay.text = "\(sign1)\(number1)\(currentoperation)"
         case "=":
             if operation == 1
             {
+                if sign1==sign2
+                {
                 answer = Double(number1)! / Double(number2)!
                 AnswerDisplay.text = String(answer)
                 calculation = ""
+                }
+                else
+                {
+                answer = neg * Double(number1)! / Double(number2)!
+                AnswerDisplay.text = String(answer)
+                calculation = ""
+                }
+           
             }
             else if operation == 2
             {
-                answer = Double(number1)! * Double(number2)!
-                AnswerDisplay.text = String(answer)
-                calculation = ""
+                if sign1==sign2
+                {
+                    answer = Double(number1)! * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else
+                {
+                    answer = neg * Double(number1)! * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                
             }
             else if operation == 3
             {
-                answer = Double(number1)! - Double(number2)!
-                AnswerDisplay.text = String(answer)
-                calculation = ""
+                if sign1=="" && sign2==""
+                {
+                    answer = Double(number1)! - Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="-" && sign2=="-"
+                {
+                    answer = neg * Double(number1)! - neg * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="-" && sign2==""
+                {
+                    answer = neg * Double(number1)! - Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="" && sign2=="-"
+                {
+                    answer = Double(number1)! - neg * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else
+                {
+                    AnswerDisplay.text = "error"
+                }
             }
             else if operation == 4
             {
-                answer = Double(number1)! + Double(number2)!
-                AnswerDisplay.text = String(answer)
-                calculation = ""
+                if sign1=="" && sign2==""
+                {
+                    answer = Double(number1)! + Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="-" && sign2=="-"
+                {
+                    answer = neg * Double(number1)! + neg * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="-" && sign2==""
+                {
+                    answer = neg * Double(number1)! + Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else if sign1=="" && sign2=="-"
+                {
+                    answer = Double(number1)! + neg * Double(number2)!
+                    AnswerDisplay.text = String(answer)
+                    calculation = ""
+                }
+                else
+                {
+                    AnswerDisplay.text = "error"
+                }
+                
             }
-            else{
+            else
+            {
+                CalculationDisplay.text = "error"
             }
         case "Clear":
             number1 = "";
@@ -92,6 +180,8 @@ class ViewController: UIViewController {
             CalculationDisplay.text = ""
             AnswerDisplay.text = ""
             operationinprogress = "no"
+            sign1 = ""
+            sign2 = ""
 
         default:
             CalculationDisplay.text = "error"
