@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     var calculation:String = ""
     var operationinprogress:String = ""
     var currentoperation:String = ""
-    var number1:Double = 0;
-    var number2:Double = 0;
+    var number1:String = "";
+    var number2:String = "";
     var answer:Double = 0;
     var operation:Int = 0;
 
@@ -24,13 +24,14 @@ class ViewController: UIViewController {
     @IBAction func Numbers(_ sender: UIButton) {
         if operationinprogress == "yes"
         {
-    calculation += sender.currentTitle!
-    CalculationDisplay.text = calculation
-            number2 = Double(calculation)!
+            number2 += sender.currentTitle!
+            calculation += number2
+            CalculationDisplay.text = "\(number1)\(currentoperation)\(number2)"
         }
         else{
-            calculation += sender.currentTitle!
-            CalculationDisplay.text = calculation
+            number1 += sender.currentTitle!
+            calculation += number1
+            CalculationDisplay.text = number1
         }
     }
     
@@ -39,63 +40,56 @@ class ViewController: UIViewController {
         currentoperation = sender.currentTitle!
         switch currentoperation {
         case "/":
-            number1 = Double(calculation)!
-            calculation = ""
             operation=1
-            CalculationDisplay.text = currentoperation
+            calculation += currentoperation
+            CalculationDisplay.text = "\(number1)\(currentoperation)"
         case "X":
-            number1 = Double(calculation)!
-            calculation = ""
             operation=2
-            CalculationDisplay.text = currentoperation
+            calculation += currentoperation
+            CalculationDisplay.text = "\(number1)\(currentoperation)"
         case "-":
-            number1 = Double(calculation)!
-            calculation = ""
             operation=3
-            CalculationDisplay.text = currentoperation
+            calculation += currentoperation
+            CalculationDisplay.text = "\(number1)\(currentoperation)"
         case "+":
-            number1 = Double(calculation)!
-            calculation = ""
             operation=4
-            CalculationDisplay.text = currentoperation
+            calculation += currentoperation
+            CalculationDisplay.text = "\(number1)\(currentoperation)"
         case "=":
             if operation == 1
             {
-                answer = number1 / number2
+                answer = Double(number1)! / Double(number2)!
                 AnswerDisplay.text = String(answer)
-                CalculationDisplay.text = ""
                 calculation = ""
             }
             else if operation == 2
             {
-                answer = number1 * number2
+                answer = Double(number1)! * Double(number2)!
                 AnswerDisplay.text = String(answer)
-                CalculationDisplay.text = ""
                 calculation = ""
             }
             else if operation == 3
             {
-                answer = number1 - number2
+                answer = Double(number1)! - Double(number2)!
                 AnswerDisplay.text = String(answer)
-                CalculationDisplay.text = ""
                 calculation = ""
             }
             else if operation == 4
             {
-                answer = number1 + number2
+                answer = Double(number1)! + Double(number2)!
                 AnswerDisplay.text = String(answer)
-                CalculationDisplay.text = ""
                 calculation = ""
             }
             else{
             }
         case "Clear":
-            number1 = 0;
-            number2 = 0;
+            number1 = "";
+            number2 = "";
             answer = 0;
             calculation = ""
             CalculationDisplay.text = ""
             AnswerDisplay.text = ""
+            operationinprogress = "no"
 
         default:
             CalculationDisplay.text = "error"
