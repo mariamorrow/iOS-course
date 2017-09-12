@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var CalculationDisplay: UILabel!
     @IBOutlet weak var AnswerDisplay: UILabel!
     
+    
+    
     @IBAction func Numbers(_ sender: UIButton) {
         if operationinprogress == "yes"
         {
